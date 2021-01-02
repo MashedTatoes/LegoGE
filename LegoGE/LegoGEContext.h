@@ -4,18 +4,24 @@
 #include <fstream>
 #include "ShaderProgram.h"
 #include "Quad2D.h"
+
+
 namespace LGE {
 	class LegoGEContext
 	{
 	private:
+		
+
 		GLFWwindow* glWindow;
 		bool m_isRunning;
 		unsigned int buffer;
 		unsigned int ibo;
+		unsigned int vao;
 		LGE_RESULT m_error;
 		void GLClearError();
 		void GLCheckError();
 		ShaderProgram* shaderProgram;
+		Quad2D* quad;
 		
 	public:
 		LGE_RESULT Init();

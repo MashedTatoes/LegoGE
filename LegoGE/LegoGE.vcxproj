@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,20 +151,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="LegoGEContext.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh2D.cpp" />
     <ClCompile Include="Quad2D.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Triangle2D.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="LegoGEContext.h" />
     <ClInclude Include="Mesh2D.h" />
     <ClInclude Include="Quad2D.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Triangle2D.h" />
+    <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\basic.shader" />

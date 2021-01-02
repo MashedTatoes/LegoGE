@@ -2,13 +2,16 @@
 
 namespace LGE {
 	
-	Mesh2D::Mesh2D(size_t numVertices, size_t numIndices, LGEColor m_color )
+	Mesh2D::Mesh2D(size_t numVertices, size_t numIndices )
 	{
-		this->m_color = m_color;
+		
 		m_vertices = new Vertex[numVertices];
 		m_indices = new unsigned int[numIndices];
 		m_indicesSize = numIndices;
 		m_verticesSize = numVertices;
+
+
+		
 
 	}
 
@@ -18,6 +21,7 @@ namespace LGE {
 		delete[] m_indices;
 		m_vertices = nullptr;
 		m_indices = nullptr;
+		
 	}
 
 	void Mesh2D::SetVertex(Vertex v, size_t index) {
@@ -42,40 +46,23 @@ namespace LGE {
 			out[(i * LGE_2DVERTEX_SIZE) + 0] = v.x;
 			out[(i * LGE_2DVERTEX_SIZE) + 1] = v.y;
 			out[(i * LGE_2DVERTEX_SIZE) + 2] = v.z;
-			out[(i * LGE_2DVERTEX_SIZE) + 3] = v.m_color.r;
-			out[(i * LGE_2DVERTEX_SIZE) + 4] = v.m_color.g;
-			out[(i * LGE_2DVERTEX_SIZE) + 5] = v.m_color.b;
-			out[(i * LGE_2DVERTEX_SIZE) + 6] = v.m_color.a;
-
-
 		}
 		return out;
 
 	}
 
-	LGE_RESULT Mesh2D::SetColor(LGEColor val, int index)
+	LGE_RESULT Mesh2D::GenerateVertexBuffer()
 	{
-		if (index < 0) {
-			for (int i = 0; i < m_verticesSize; i++) {
-				m_vertices[i].m_color = val;
-			}
-		}
-		else if (index >= m_verticesSize) {
-			return LGE_NULL_VERTEX;
-
-		}
-		else {
-			m_vertices[index].m_color = val;
-		}
+		size_t size = 0;
+		float* vertices = SerialzeToBuffer(&size);
+		m_vertexBuffer = new VertexBuffer(vertices,size);
 		return LGE_OK;
-
 	}
-
-
-
-
-
-
+	LGE_RESULT Mesh2D::GenerateIndexBuffer()
+	{
+		m_indexBuffer = new IndexBuffer(GetIndices(), GetNumIndices());
+		return LGE_OK;
+	}
 }
 
 

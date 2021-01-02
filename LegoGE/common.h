@@ -15,7 +15,7 @@
 #define LGE_SHADER_NOTCOMPILED -5
 #define LGE_NULL_VERTEX -7
 
-#define LGE_2DVERTEX_SIZE 7
+#define LGE_2DVERTEX_SIZE 3
 
 namespace LGE {
 	typedef int LGE_RESULT;
@@ -46,8 +46,8 @@ namespace LGE {
 		float x;
 		float y;
 		float z;
-		LGEColor m_color;
-		Vertex(float _x, float _y, float _z, LGEColor _color) : x(_x), y(_y), z(_z), m_color(_color) {
+		
+		Vertex(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {
 
 		}
 		Vertex(){}
