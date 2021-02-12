@@ -1,19 +1,23 @@
 #pragma once
 #include "common.h"
+#include "LGEBuffer.h"
 namespace LGE {
-	class IndexBuffer
+	class IndexBuffer : LGEBuffer<unsigned int>
 	{
 
-	private:
-		unsigned int m_bufferId;
-		unsigned int* m_indexBuffer;
+
 
 	public:
-		IndexBuffer(unsigned int* data, unsigned int size);
+		IndexBuffer();
 		~IndexBuffer();
 
 		void Bind();
 		void UnBind();
+		void UpdateBuffer();
+		void SetBuffer(std::vector< unsigned int> data, int size) { LGEBuffer::SetBuffer(data, size); }
+		void BufferData(unsigned int* data, int size);
+		
+
 	};
 
 }

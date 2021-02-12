@@ -17,6 +17,8 @@
 
 #define LGE_2DVERTEX_SIZE 3
 
+
+
 namespace LGE {
 	typedef int LGE_RESULT;
 
@@ -38,6 +40,38 @@ namespace LGE {
 		}
 
 	};
+
+    struct Vector2
+    {
+        float x;
+        float y;
+        
+        
+
+        Vector2() {
+            x = 0;
+            y = 0;
+        }
+
+        Vector2(float _x, float _y) : x(_x),y(_y)
+        {
+            
+        }
+
+        static Vector2 zero()
+        {
+            return Vector2(0, 0);
+
+        }
+
+        static Vector2 one()
+        {
+            return Vector2(1, 1);
+        }
+
+    };
+    
+
 #define RED LGEColor(1.0f,0.0f,0.0f,1.0f)
 #define WHITE LGEColor(1.0f,1.0f,1.0f,1.0f)
 
@@ -72,12 +106,21 @@ namespace LGE {
 
 	}
 
-	inline void APIENTRY OpenGLDebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+    enum DebugMessageStrictness
+    {
+        LOW,
+        MEDIUM,
+        HIGH
+
+    };
+
+	inline void APIENTRY OpenGLDebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* param)
 	{
 
         std::string _source;
         std::string _type;
         std::string _severity;
+        int strictness = (int)param;
         
 
         switch (source) {
@@ -166,7 +209,30 @@ namespace LGE {
             break;
         }
 
-        std::cout << "[" << _severity << "] " << _type << ": " << message << std::endl;
+        if (strictness == (int)DebugMessageStrictness::LOW)
+        {
+            if (severity <= GL_DEBUG_SEVERITY_HIGH && severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+            {
+                std::cout << "[" << _severity << "] " << _type << ": " << message << std::endl;
+
+            }
+
+        }
+        else if (strictness == (int)DebugMessageStrictness::MEDIUM)
+        {
+            if (severity <= GL_DEBUG_SEVERITY_LOW && severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+            {
+                std::cout << "[" << _severity << "] " << _type << ": " << message << std::endl;
+            }
+        }
+
+        else
+        {
+            std::cout << "[" << _severity << "] " << _type << ": " << message << std::endl;
+        }
+
+
+        
 
         
 

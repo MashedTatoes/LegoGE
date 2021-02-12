@@ -1,19 +1,22 @@
 #pragma once
-#include "common.h"
+
+#include "LGEBuffer.h"
 namespace LGE {
-	class VertexBuffer
+	class VertexBuffer : LGEBuffer<float>
 	{
 
 	private:
-		unsigned int m_bufferId;
-		float* m_vertexBuffer;
+		
 
 	public:
-		VertexBuffer(float* data, unsigned int size);
+		VertexBuffer();
 		~VertexBuffer();
 
 		void Bind();
 		void UnBind();
+		void UpdateBuffer();
+		void SetBuffer(std::vector<float> data, int size) { LGEBuffer::SetBuffer(data, size); }
+		void BufferData(float* data, int size);
 	};
 
 }

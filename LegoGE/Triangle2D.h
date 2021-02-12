@@ -6,6 +6,7 @@ namespace LGE {
 	{
 	public:
 		Triangle2D();
+		void GenerateVertexLayout();
 
 	};
 }

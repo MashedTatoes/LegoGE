@@ -156,6 +156,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh2D.cpp" />
     <ClCompile Include="Quad2D.cpp" />
+    <ClCompile Include="RenderContext.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Triangle2D.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
@@ -163,9 +164,11 @@
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="LGEBuffer.h" />
     <ClInclude Include="LegoGEContext.h" />
     <ClInclude Include="Mesh2D.h" />
     <ClInclude Include="Quad2D.h" />
+    <ClInclude Include="RenderContext.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Triangle2D.h" />
     <ClInclude Include="VertexBuffer.h" />

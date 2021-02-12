@@ -1,7 +1,7 @@
 #include "LegoGEContext.h"
 namespace LGE
 {
-    LGE_RESULT LegoGEContext::Init()
+    LGE_RESULT LegoGEContext::Init(int windowWidth, int windowHeight)
     {
         GLFWwindow* window;
         m_error = LGE_OK;
@@ -10,10 +10,12 @@ namespace LGE
             //m_error = LGE_INIT_FAILED;
             return LGE_INIT_FAILED;
 
-        
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(640, 480, "Lego Graphics Engine!", NULL, NULL);
+        window = glfwCreateWindow(windowWidth, windowHeight, "Lego Graphics Engine!", NULL, NULL);
         if (!window)
         {
             glfwTerminate();
@@ -25,33 +27,34 @@ namespace LGE
         glewInit();
         glEnable(GL_DEBUG_OUTPUT);
 
-        glDebugMessageCallback(OpenGLDebugMessage, nullptr);
+        glDebugMessageCallback(OpenGLDebugMessage, (void*)DebugMessageStrictness::HIGH);
 
-        quad = new Quad2D();
-        
-        unsigned int* indices = quad->GetIndices();
-        
-        glGenVertexArrays(1, &vao);
+        /*glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-
-        quad->GenerateVertexBuffer();
+        m_vertexBuffer = new VertexBuffer();
+        quad->LoadIntoVertexBuffer(m_vertexBuffer, 0);
+        //triangle->LoadIntoVertexBuffer(m_vertexBuffer, 0);
 
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * LGE_2DVERTEX_SIZE, 0);
-        quad->GenerateIndexBuffer();
+        m_indexBuffer = new IndexBuffer();
+        quad->LoadIntoIndexBuffer(m_indexBuffer, 0);
+        //triangle->LoadIntoIndexBuffer(m_indexBuffer, 0);
+
+
+        shaderProgram = new ShaderProgram("res/shader/basic.shader");
+        LGE_RESULT result = shaderProgram->Compile();
+
+        
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        
         glUseProgram(0);
+        glBindVertexArray(0);*/
 
-        
-        glBindVertexArray(0);
 
-        shaderProgram = new ShaderProgram("res/shader/basic.shader");
 
-        LGE_RESULT result = shaderProgram->Compile();
-        
-        
         std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
         this->glWindow = window;
         this->m_isRunning = true;
@@ -62,46 +65,48 @@ namespace LGE
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        UseShader(shaderProgram);
-        int location = glGetUniformLocation(shaderProgram->GetProgram(), "u_color");
         
-        glUniform4f(location, 0.5, 0.0f, 0.25f, 1.0f);
-        glBindVertexArray(vao);
         
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+       
+        //glBindVertexArray(vao);
+        //m_indexBuffer->Bind();
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint) * 6));
+
+        if (m_renderer != nullptr)
+        {
+            m_renderer->Draw();
+
+
+        }
+
+        
+        
+        
+        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
         
         
         glfwSwapBuffers(this->glWindow);
+        glBindVertexArray(0);
+        m_renderer->LoadMeshQueue();
         return LGE_OK;
     }
 
     LGE_RESULT LegoGEContext::Update()
     {
+       
         
         if (glfwWindowShouldClose(this->glWindow)) {
 
             return LGE_EXIT;
         }
         
+        
+
         return LGE_OK;
     }
 
-    LGE_RESULT LegoGEContext::UseShader(ShaderProgram* shader)
-    {
-        if (shader->GetProgram() == LGE_SHADER_NOTCOMPILED) {
-            std::cout << "Shader not compiled\n";
-            m_error = LGE_SHADER_NOTCOMPILED;
-            return LGE_SHADER_NOTCOMPILED;
-        }
-        else {
-            glUseProgram(shader->GetProgram());
-        }
 
-
-    }
 
     
 

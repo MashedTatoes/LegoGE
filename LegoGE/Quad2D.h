@@ -6,6 +6,7 @@ namespace LGE {
 	{
 	public:
 		Quad2D();
+		void GenerateVertexLayout();
 
 	};
 
