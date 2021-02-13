@@ -25,7 +25,8 @@ int main(void)
     while (lge->Update() > -1)
     {
         mesh->SetPosition(Vector2(mesh->GetPosition().x + 0.01, mesh->GetPosition().y));
-       
+        triangle->SetPosition(Vector2(triangle->GetPosition().x, triangle->GetPosition().y - 0.01));
+
         /* Render here */
         lge->Render();
 

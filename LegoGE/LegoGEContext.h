@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include "ShaderProgram.h"
-#include "Quad2D.h"
+
 #include "RenderContext.h"
 
 namespace LGE {
@@ -28,7 +28,7 @@ namespace LGE {
 		LGE_RESULT Update();
 		LGE_RESULT GetError() { return m_error; }
 		
-		LGE_RESULT FillRenderBuffer(Mesh2D* mesh);
+		
 		void BindRenderContext(RenderContext* renderer) { m_renderer = renderer; }
 		
 		
