@@ -53,8 +53,8 @@ namespace LGE {
 		*bufferSize = size;
 		for (int i = 0; i < m_verticesSize; i++) {
 			Vertex v = m_vertices[i];
-			out[(i * LGE_2DVERTEX_SIZE) + 0] = v.x;
-			out[(i * LGE_2DVERTEX_SIZE) + 1] = v.y;
+			out[(i * LGE_2DVERTEX_SIZE) + 0] = (v.x + m_position.x);
+			out[(i * LGE_2DVERTEX_SIZE) + 1] = (v.y + m_position.y);
 			out[(i * LGE_2DVERTEX_SIZE) + 2] = v.z;
 		}
 		return out;
@@ -65,7 +65,7 @@ namespace LGE {
 	{
 		size_t size;
 		float* vertices = SerialzeToBuffer(&size);
-		buffer->BufferData(vertices, size);
+		m_offset = buffer->BufferData(vertices, size);
 
 	}
 
@@ -89,7 +89,7 @@ namespace LGE {
 	Mesh2D* Mesh2D::triangle()
 	{
 		Mesh2D* triangle = new Mesh2D(3,3);
-		triangle->SetIndexBuffer(new unsigned int[3]{ 4,5,6 });
+		triangle->SetIndexBuffer(new unsigned int[3]{ 0,1,2 });
 		triangle->SetVertex(Vertex(-0.5f, -0.5f, 0.0f), 0);
 		triangle->SetVertex(Vertex(0.5f, -0.5f, 0.0f), 1);
 		triangle->SetVertex(Vertex(0.0f, 0.5f, 0.0f), 2);

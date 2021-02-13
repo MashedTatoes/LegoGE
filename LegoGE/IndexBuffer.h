@@ -2,7 +2,7 @@
 #include "common.h"
 #include "LGEBuffer.h"
 namespace LGE {
-	class IndexBuffer : LGEBuffer<unsigned int>
+	class IndexBuffer : public LGEBuffer<unsigned int>
 	{
 
 
@@ -13,9 +13,9 @@ namespace LGE {
 
 		void Bind();
 		void UnBind();
-		void UpdateBuffer();
+		void UpdateBuffer(unsigned int offset, size_t size, unsigned int* data);
 		void SetBuffer(std::vector< unsigned int> data, int size) { LGEBuffer::SetBuffer(data, size); }
-		void BufferData(unsigned int* data, int size);
+		size_t BufferData(unsigned int* data, int size);
 		
 
 	};

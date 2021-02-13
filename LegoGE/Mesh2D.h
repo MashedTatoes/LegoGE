@@ -13,7 +13,7 @@ namespace LGE {
 		
 		Vector2 m_position;
 		size_t m_serializedSize;
-	
+		int m_offset;
 	
 	public:
 		Mesh2D(size_t numVertices, size_t numIndices);
@@ -36,6 +36,7 @@ namespace LGE {
 		void LoadIntoIndexBuffer(IndexBuffer* buffer, unsigned int offset);
 		
 		size_t GetSize() { return m_serializedSize; }
+		int GetOffset() { return m_offset; }
 
 		static Mesh2D* quad();
 		static Mesh2D* triangle();

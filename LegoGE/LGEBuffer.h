@@ -22,7 +22,7 @@ namespace LGE
 		virtual void Bind() {}
 		virtual void Unbind() {}
 
-		void SetBuffer(std::vector<T> data, int size)
+		 void SetBuffer(std::vector<T> data, int size)
 		{
 			m_buffer = data;
 			m_size = size;
@@ -30,8 +30,8 @@ namespace LGE
 
 		int GetSize() { return m_size; }
 
-		virtual void UpdateBuffer(){}
-		virtual void BufferData(T* data, int size){}
+		virtual void UpdateBuffer(unsigned int offset, size_t size, T* data){}
+		virtual size_t BufferData(T* data, int size) { return 0; }
 		
 		
 		

@@ -79,30 +79,20 @@ namespace LGE
 
 
         }
-
-        
-        
-        
-        //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        
-        
         glfwSwapBuffers(this->glWindow);
         glBindVertexArray(0);
+        
         m_renderer->LoadMeshQueue();
         return LGE_OK;
     }
 
     LGE_RESULT LegoGEContext::Update()
     {
-       
-        
         if (glfwWindowShouldClose(this->glWindow)) {
 
             return LGE_EXIT;
         }
-        
-        
-
+        m_renderer->UpdateBuffers();
         return LGE_OK;
     }
 

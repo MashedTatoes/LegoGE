@@ -26,20 +26,24 @@ namespace LGE {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	void IndexBuffer::UpdateBuffer()
+	
+
+	void IndexBuffer::UpdateBuffer(unsigned int offset, size_t size, unsigned int* data)
 	{
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_bufferId);
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(float) * m_size, m_buffer.data());
+		Bind();
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, sizeof(float) * size, data);
 
 	}
 
-	void IndexBuffer::BufferData(unsigned int* data, int size)
+	size_t IndexBuffer::BufferData(unsigned int* data, int size)
 	{
 		Bind();
+		size_t offset = m_size;
 		m_size += size;
 
 		m_buffer.insert(m_buffer.end(), data, data + size);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_size, m_buffer.data(), GL_STATIC_DRAW);
+		return offset;
 	}
 
 	

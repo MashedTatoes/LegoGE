@@ -26,20 +26,22 @@ namespace LGE {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void VertexBuffer::UpdateBuffer()
+	void VertexBuffer::UpdateBuffer(unsigned int offset, size_t size, float* data)
 	{
 		Bind();
-		glBufferSubData(GL_ARRAY_BUFFER,0, sizeof(float) * m_size, m_buffer.data());
+		glBufferSubData(GL_ARRAY_BUFFER,offset * sizeof(float), sizeof(float) * size, data);
 	}
 
-	void VertexBuffer::BufferData(float* data, int size)
+	size_t VertexBuffer::BufferData(float* data, int size)
 	{
 		Bind();
+		size_t offset = m_size;
 		m_size += size;
 		
 		m_buffer.insert(m_buffer.end(), data,data + size);
 	
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_size, m_buffer.data(), GL_STATIC_DRAW);
+		return offset;
 		
 
 	}

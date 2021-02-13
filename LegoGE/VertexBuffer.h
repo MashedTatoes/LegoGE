@@ -2,7 +2,7 @@
 
 #include "LGEBuffer.h"
 namespace LGE {
-	class VertexBuffer : LGEBuffer<float>
+	class VertexBuffer : public LGEBuffer<float>
 	{
 
 	private:
@@ -14,9 +14,9 @@ namespace LGE {
 
 		void Bind();
 		void UnBind();
-		void UpdateBuffer();
+		void UpdateBuffer(unsigned int offset, size_t size, float* data);
 		void SetBuffer(std::vector<float> data, int size) { LGEBuffer::SetBuffer(data, size); }
-		void BufferData(float* data, int size);
+		size_t BufferData(float* data, int offset);
 	};
 
 }

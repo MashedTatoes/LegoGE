@@ -28,6 +28,14 @@ namespace LGE
 	{
 		for(auto& mesh : m_meshQueue)
 		{
+			unsigned int* indexBuffer = new unsigned int[mesh->GetNumIndices()];
+			for (int i = 0; i < mesh->GetNumIndices();i++)
+			{
+
+				indexBuffer[i] = mesh->GetIndices()[i] + (m_vertexBuffer->GetSize() / LGE_2DVERTEX_SIZE);
+
+			}
+			mesh->SetIndexBuffer(indexBuffer);
 			mesh->LoadIntoVertexBuffer(m_vertexBuffer, 0);
 			mesh->LoadIntoIndexBuffer(m_indexBuffer, 0);
 			m_renderObjects.push_back(mesh);
@@ -37,7 +45,13 @@ namespace LGE
 	}
 	void RenderContext::UpdateBuffers()
 	{
-
+		for (auto& mesh : m_renderObjects)
+		{
+			
+			size_t size;
+			float* vertexData = mesh->SerialzeToBuffer(&size);
+			m_vertexBuffer->UpdateBuffer(mesh->GetOffset(), size, vertexData);
+		}
 
 	}
 	void RenderContext::Draw()
@@ -51,7 +65,7 @@ namespace LGE
 			glBindVertexArray(m_vao);
 			m_indexBuffer->Bind();
 			
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)(sizeof(GLuint) * 0));
+			glDrawElements(GL_TRIANGLES, m_indexBuffer->GetSize(), GL_UNSIGNED_INT, nullptr);
 
 		}
 
