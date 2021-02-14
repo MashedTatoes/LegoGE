@@ -15,9 +15,11 @@ namespace LGE {
 		VertexBuffer* m_vertexBuffer;
 		IndexBuffer* m_indexBuffer;
 		ShaderProgram* shaderProgram;
+		Projector m_projector;
 
 	public:
-		RenderContext();
+		RenderContext(Projector projector);
+		
 		void QueueMesh(Mesh2D* mesh);
 		void LoadMeshQueue();
 		void UpdateBuffers();

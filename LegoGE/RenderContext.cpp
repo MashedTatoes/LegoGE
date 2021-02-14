@@ -2,16 +2,24 @@
 
 namespace LGE
 {
-	RenderContext::RenderContext()
+	RenderContext::RenderContext(Projector projector)
 	{
+		m_projector = projector;
 		glGenVertexArrays(1, &m_vao);
 		glBindVertexArray(m_vao);
 		m_vertexBuffer = new VertexBuffer();
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * LGE_2DVERTEX_SIZE, 0);
+		glVertexAttribPointer(0, LGE_2DVERTEX_SIZE, GL_FLOAT, GL_FALSE, sizeof(float) * LGE_2DVERTEX_SIZE, 0);
 		m_indexBuffer = new IndexBuffer();
+		
+		
+		
 		shaderProgram = new ShaderProgram("res/shader/basic.shader");
 		LGE_RESULT result = shaderProgram->Compile();
+		UseShader(shaderProgram);
+		int location = glGetUniformLocation(shaderProgram->GetProgram(), "u_mvp");
+		glUniformMatrix4fv(location, 1, GL_FALSE, &m_projector.GetProjectionMatrix()[0][0]);
+
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -19,6 +27,7 @@ namespace LGE
 		glUseProgram(0);
 		glBindVertexArray(0);
 	}
+	
 	void RenderContext::QueueMesh(Mesh2D* mesh)
 	{
 		m_meshQueue.push_back(mesh);
@@ -66,6 +75,7 @@ namespace LGE
 			m_indexBuffer->Bind();
 			
 			glDrawElements(GL_TRIANGLES, m_indexBuffer->GetSize(), GL_UNSIGNED_INT, nullptr);
+			glBindVertexArray(0);
 
 		}
 

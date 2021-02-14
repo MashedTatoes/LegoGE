@@ -10,24 +10,25 @@ int main(void)
     LegoGEContext* lge = new LegoGEContext();
     
 
-    if (lge->Init(720,480) < 1) {
+    if (lge->Init(960,540) < 1) {
         return -1;
     }
 
-    RenderContext* context = new RenderContext();
+    RenderContext* context = new RenderContext(lge->GetProjector());
     Mesh2D* mesh = Mesh2D::quad();
-    Mesh2D* triangle = Mesh2D::triangle();
+
+
     context->QueueMesh(mesh);
-    context->QueueMesh(triangle);
+ 
 
     lge->BindRenderContext(context);
     
     while (lge->Update() > -1)
     {
-        mesh->SetPosition(Vector2(mesh->GetPosition().x + 0.01, mesh->GetPosition().y));
-        triangle->SetPosition(Vector2(triangle->GetPosition().x, triangle->GetPosition().y - 0.01));
+        mesh->GetTransform()->Translate(1.0f,0.0f);
+        
 
-        /* Render here */
+       
         lge->Render();
 
         /* Poll for and process events */

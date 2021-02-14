@@ -20,6 +20,8 @@ namespace LGE {
 		void GLCheckError();
 		ShaderProgram* shaderProgram;
 		RenderContext* m_renderer;
+		Projector* m_projector;
+
 		
 	public:
 		LGE_RESULT Init(int windowWidth, int windowHeight);
@@ -27,7 +29,7 @@ namespace LGE {
 		bool IsRunning() { return m_isRunning; }
 		LGE_RESULT Update();
 		LGE_RESULT GetError() { return m_error; }
-		
+		Projector GetProjector() { return *m_projector; }
 		
 		void BindRenderContext(RenderContext* renderer) { m_renderer = renderer; }
 		

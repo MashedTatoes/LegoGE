@@ -155,8 +155,10 @@
     <ClCompile Include="LegoGEContext.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh2D.cpp" />
+    <ClCompile Include="Projector.cpp" />
     <ClCompile Include="RenderContext.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,8 +167,10 @@
     <ClInclude Include="LGEBuffer.h" />
     <ClInclude Include="LegoGEContext.h" />
     <ClInclude Include="Mesh2D.h" />
+    <ClInclude Include="Projector.h" />
     <ClInclude Include="RenderContext.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>

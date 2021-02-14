@@ -10,11 +10,12 @@ void main()
 #shader vertex
 #version 330 core
 #extension GL_ARB_separate_shader_objects : enable
-layout(location = 0) in vec3 position;
+layout(location = 0) in vec4 position;
+uniform mat4 u_mvp;
 void main()
 {
 
-    gl_Position = vec4(position,1.0);
+    gl_Position = u_mvp * position ;
 
 
 }

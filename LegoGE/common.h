@@ -4,7 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
-
+#include <glm/common.hpp>
+#include <glm/glm.hpp>
+#include "Transform.h"
+#include "Projector.h"
 #include <sstream>
 #include <string>
 #define LGE_OK 1
@@ -15,7 +18,7 @@
 #define LGE_SHADER_NOTCOMPILED -5
 #define LGE_NULL_VERTEX -7
 
-#define LGE_2DVERTEX_SIZE 3
+#define LGE_2DVERTEX_SIZE 4
 
 
 
@@ -80,8 +83,9 @@ namespace LGE {
 		float x;
 		float y;
 		float z;
-		
-		Vertex(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {
+        float w;
+
+		Vertex(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z),w(_w) {
 
 		}
 		Vertex(){}

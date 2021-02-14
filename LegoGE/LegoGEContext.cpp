@@ -28,33 +28,8 @@ namespace LGE
         glEnable(GL_DEBUG_OUTPUT);
 
         glDebugMessageCallback(OpenGLDebugMessage, (void*)DebugMessageStrictness::HIGH);
-
-        /*glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-        m_vertexBuffer = new VertexBuffer();
-        quad->LoadIntoVertexBuffer(m_vertexBuffer, 0);
-        //triangle->LoadIntoVertexBuffer(m_vertexBuffer, 0);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * LGE_2DVERTEX_SIZE, 0);
-        m_indexBuffer = new IndexBuffer();
-        quad->LoadIntoIndexBuffer(m_indexBuffer, 0);
-        //triangle->LoadIntoIndexBuffer(m_indexBuffer, 0);
-
-
-        shaderProgram = new ShaderProgram("res/shader/basic.shader");
-        LGE_RESULT result = shaderProgram->Compile();
-
-        
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        
-        glUseProgram(0);
-        glBindVertexArray(0);*/
-
-
-
+        m_projector = new Projector(windowWidth, windowHeight);
+       
         std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
         this->glWindow = window;
         this->m_isRunning = true;
@@ -68,10 +43,6 @@ namespace LGE
         
         
        
-        //glBindVertexArray(vao);
-        //m_indexBuffer->Bind();
-
-        //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(sizeof(GLuint) * 6));
 
         if (m_renderer != nullptr)
         {
@@ -80,7 +51,7 @@ namespace LGE
 
         }
         glfwSwapBuffers(this->glWindow);
-        glBindVertexArray(0);
+        
         
         m_renderer->LoadMeshQueue();
         return LGE_OK;
