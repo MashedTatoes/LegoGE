@@ -53,7 +53,7 @@ namespace LGE
         glfwSwapBuffers(this->glWindow);
         
         
-        m_renderer->LoadMeshQueue();
+        m_renderer->LoadQueue(LGE_MESH_QUEUE | LGE_TEXTURE_QUEUE);
         return LGE_OK;
     }
 

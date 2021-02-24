@@ -3,7 +3,7 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 namespace LGE {
-	class Mesh2D
+	class Mesh
 	{
 	protected:
 		Vertex* m_vertices;
@@ -16,39 +16,51 @@ namespace LGE {
 		Transform* m_transform;
 
 		int m_offset;
+		Texture* m_tex;
+
 	
 	public:
-		Mesh2D(size_t numVertices, size_t numIndices);
-		Mesh2D(size_t numVertices, size_t numIndices, Transform* transform) : Mesh2D(numVertices,numIndices) 
+		Mesh(size_t numVertices, size_t numIndices);
+		Mesh(size_t numVertices, size_t numIndices, Transform* transform) : Mesh(numVertices,numIndices) 
 		{
 			m_transform = transform;
 		}
 
-		Mesh2D(size_t numVertices, size_t numIndices, glm::vec3 position, glm::vec3 size) : Mesh2D(numVertices, numIndices, new Transform(position, size))
+		Mesh(size_t numVertices, size_t numIndices, glm::vec3 position, glm::vec3 size) : Mesh(numVertices, numIndices, new Transform(position, size))
 		{
 			
 
 		}
 
-		~Mesh2D();
+		~Mesh();
 		void SetVertex(Vertex v, size_t index);
+		Vertex GetVertex(size_t index) { return m_vertices[index]; }
+		void SetColor(unsigned int* vertices,int amount, LGEColor clr);
+
+
 		void SetIndexBuffer(unsigned int* buffer);
 		float* SerialzeToBuffer(size_t* bufferSize);
 		unsigned int* GetIndices() { return m_indices; }
 		
 		size_t GetNumIndices() { return m_indicesSize; }
-		LGE_RESULT GenerateVertexBuffer();
-		LGE_RESULT GenerateIndexBuffer();
-		virtual void GenerateVertexLayout(){ }
 		void LoadIntoVertexBuffer(VertexBuffer* buffer,unsigned int offset);
 		void LoadIntoIndexBuffer(IndexBuffer* buffer, unsigned int offset);
+
 		size_t GetSize() { return m_serializedSize; }
 		int GetOffset() { return m_offset; }
 		Transform* GetTransform() { return m_transform; }
+		void SetTexture(Texture* tex);
+		Texture GetTexture()
+		{
+			return *m_tex;
+		}
 
-		static Mesh2D* quad();
-		static Mesh2D* triangle();
 
+
+
+		static Mesh* quad();
+		static Mesh* triangle();
+		static Mesh* cube();
 
 
 

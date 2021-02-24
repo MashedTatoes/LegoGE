@@ -151,30 +151,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="LegoGEContext.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh2D.cpp" />
-    <ClCompile Include="Projector.cpp" />
-    <ClCompile Include="RenderContext.cpp" />
-    <ClCompile Include="ShaderProgram.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\LegoGEContext.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\Projector.cpp" />
+    <ClCompile Include="src\RenderContext.cpp" />
+    <ClCompile Include="src\ShaderProgram.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Transform.cpp" />
+    <ClCompile Include="src\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
-    <ClInclude Include="IndexBuffer.h" />
-    <ClInclude Include="LGEBuffer.h" />
-    <ClInclude Include="LegoGEContext.h" />
-    <ClInclude Include="Mesh2D.h" />
-    <ClInclude Include="Projector.h" />
-    <ClInclude Include="RenderContext.h" />
-    <ClInclude Include="ShaderProgram.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\LGEBuffer.h" />
+    <ClInclude Include="src\LegoGEContext.h" />
+    <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\Projector.h" />
+    <ClInclude Include="src\RenderContext.h" />
+    <ClInclude Include="src\ShaderProgram.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\Transform.h" />
+    <ClInclude Include="src\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shader\basic.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Documents\SimClone\Assets\Graphics\person.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

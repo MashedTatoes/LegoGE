@@ -79,7 +79,39 @@ namespace LGE {
         this->m_vertexSrc = ss[(int)ShaderType::VERTEX].str();
     }
 
-    LGE_RESULT ShaderProgram::Compile()
+	void ShaderProgram::SetUniform1f(const std::string& name, float value)
+	{
+        glUniform1f(GetUniformLocation(name), value);
+
+
+	}
+
+	void ShaderProgram::SetUniform1i32(const std::string& name, int value)
+	{
+        glUniform1i(GetUniformLocation(name), value);
+	}
+
+	void ShaderProgram::SetUniform4f(const std::string& name, float x, float y, float z, float tex_x)
+	{
+        glUniform4f(GetUniformLocation(name),x,y,z,tex_x);
+	}
+
+	void ShaderProgram::SetUniformMat4(const std::string& name, glm::mat4 value)
+	{
+        glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &value[0][0]);
+	}
+
+	int ShaderProgram::GetUniformLocation(const std::string& name)
+	{
+        int location = glGetUniformLocation(m_shaderProgram, name.c_str());
+        if (location == -1) {
+            std::cout << "Uniform: " << name << "not found";
+        }
+
+        return location;
+	}
+
+	LGE_RESULT ShaderProgram::Compile()
     {
         int result = CreateShader(this->m_vertexSrc, this->m_fragmentSrc);
         if (result < 0) {

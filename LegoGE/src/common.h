@@ -1,4 +1,7 @@
 #pragma once
+
+
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 #include <iostream>
@@ -6,10 +9,13 @@
 #include <stdlib.h>
 #include <glm/common.hpp>
 #include <glm/glm.hpp>
-#include "Transform.h"
-#include "Projector.h"
 #include <sstream>
 #include <string>
+
+
+#include "Transform.h"
+#include "Projector.h"
+#include "Texture.h"
 #define LGE_OK 1
 #define LGE_EXIT -1
 #define LGE_INIT_FAILED -2
@@ -18,9 +24,14 @@
 #define LGE_SHADER_NOTCOMPILED -5
 #define LGE_NULL_VERTEX -7
 
-#define LGE_2DVERTEX_SIZE 4
+#define LGE_2DVERTEX_SIZE 7
+#define LGE_2DVERTEX_LAYOUT1 2
+#define LGE_2DVERTEX_LAYOUT2 4
 
+#define LGE_MESH_QUEUE 0x100
+#define LGE_TEXTURE_QUEUE 0x200
 
+typedef unsigned char ubyte;
 
 namespace LGE {
 	typedef int LGE_RESULT;
@@ -28,19 +39,21 @@ namespace LGE {
 	
 
 	struct LGEColor {
-		float r;
-		float g;
-		float b;
-		float a;
+        float r;
+        float g;
+        float b;
+        float a;
 		LGEColor() {
-			r = 1.0f;
-			g = 1.0f;
-			b = 1.0f;
-			a = 1.0f;
+			r = 255;
+			g = 255;
+			b = 255;
+			a = 255;
 		}
 		LGEColor(float _r, float _g, float _b, float _a) : r(_r),b(_b),g(_g),a(_a) {
 
 		}
+
+       
 
 	};
 
@@ -48,9 +61,6 @@ namespace LGE {
     {
         float x;
         float y;
-        
-        
-
         Vector2() {
             x = 0;
             y = 0;
@@ -75,22 +85,56 @@ namespace LGE {
     };
     
 
-#define RED LGEColor(1.0f,0.0f,0.0f,1.0f)
-#define WHITE LGEColor(1.0f,1.0f,1.0f,1.0f)
+#define RED LGEColor(1.0,0,0,255)
+#define WHITE LGEColor(255,255,255,255)
 
 	struct Vertex {
 		
 		float x;
 		float y;
-		float z;
-        float w;
+        float tex_x;
+        float tex_y;
+        LGEColor clr;
 
-		Vertex(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z),w(_w) {
+		Vertex(float _x, float _y, float tx,float ty) : x(_x), y(_y), tex_x(tx),tex_y(ty), clr(WHITE) {
+
+		}
+
+		Vertex(float _x, float _y, float tx, float ty, LGEColor _clr) : x(_x), y(_y),tex_x(tx),tex_y(ty),clr(_clr) {
 
 		}
 		Vertex(){}
 
+        Vertex& operator+(const Vertex other)
+        {
+            Vertex result = Vertex(other.x + x, other.y + y, tex_x,tex_y,clr);
+            return result;
+
+        }
+        Vertex& operator*(const Vertex other)
+        {
+            Vertex result = Vertex(other.x * x, other.y * y, tex_x, tex_y, clr);
+            return result;
+
+        }
+        Vertex& operator/(const Vertex other)
+        {
+            Vertex result = Vertex(other.x / x, other.y / y,  tex_x, tex_y, clr);
+            return result;
+
+        }
+
+        Vertex& operator-(const Vertex other)
+        {
+            Vertex result = Vertex(other.x - x, other.y - y,  tex_x, tex_y, clr);
+            return result;
+
+        }
+
 	};
+
+
+    
 
 	inline LGE_RESULT ReadFile(const std::string& path, std::string* out) {
 		std::ifstream in(path);

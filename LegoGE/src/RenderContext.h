@@ -1,6 +1,6 @@
 #pragma once
 #include "common.h"
-#include "Mesh2D.h"
+#include "Mesh.h"
 #include "ShaderProgram.h"
 #include <vector>
 
@@ -10,8 +10,9 @@ namespace LGE {
 	{
 	private:
 		unsigned int m_vao;
-		std::vector<Mesh2D*> m_renderObjects;
-		std::vector<Mesh2D*>  m_meshQueue;
+		std::vector<Mesh*> m_renderObjects;
+		std::vector<Mesh*>  m_meshQueue;
+
 		VertexBuffer* m_vertexBuffer;
 		IndexBuffer* m_indexBuffer;
 		ShaderProgram* shaderProgram;
@@ -20,11 +21,15 @@ namespace LGE {
 	public:
 		RenderContext(Projector projector);
 		
-		void QueueMesh(Mesh2D* mesh);
-		void LoadMeshQueue();
+		void QueueMesh(Mesh* mesh);
+		//void QueueTexture(Texture* tex);
+
+		void LoadQueue(unsigned int target);
 		void UpdateBuffers();
 		void Draw();
 		
+
+
 		LGE_RESULT UseShader(ShaderProgram* shaderProgram);
 
 	};

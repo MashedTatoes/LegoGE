@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "LegoGEContext.h"
-
+#include "Mesh.h"
 
 using namespace LGE;
 int main(void)
@@ -15,20 +15,35 @@ int main(void)
     }
 
     RenderContext* context = new RenderContext(lge->GetProjector());
-    Mesh2D* mesh = Mesh2D::quad();
+    Mesh* mesh = Mesh::quad();
+    //Mesh* triangle = Mesh::triangle();
+    /* Mesh* triangle = Mesh::triangle();*/
 
-
+    Texture* t = new Texture("res/person.png");
+    t->Bind();
+    mesh->SetTexture(t);
     context->QueueMesh(mesh);
- 
+
+    //context->QueueMesh(triangle);
 
     lge->BindRenderContext(context);
     
+    float clr = 0;
+   
+
     while (lge->Update() > -1)
     {
         mesh->GetTransform()->Translate(1.0f,0.0f);
-        
+        /*clr += 0.01f;
+        if (clr > 1.0f)
+        {
+            clr = 0.0f;
+        }
 
-       
+        mesh->SetColor(new unsigned int[2] {3, 4}, 2, LGEColor(clr, 0.5f, 0.5f, 1.0f));*/
+
+        
+        //triangle->GetTransform()->Translate(1.5f, -1.0f);
         lge->Render();
 
         /* Poll for and process events */
