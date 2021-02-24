@@ -12,11 +12,15 @@ namespace LGE {
 		unsigned int m_vao;
 		std::vector<Mesh*> m_renderObjects;
 		std::vector<Mesh*>  m_meshQueue;
+		std::vector<float*> m_vertexGarbage;
+
 
 		VertexBuffer* m_vertexBuffer;
 		IndexBuffer* m_indexBuffer;
 		ShaderProgram* shaderProgram;
 		Projector m_projector;
+		
+
 
 	public:
 		RenderContext(Projector projector);

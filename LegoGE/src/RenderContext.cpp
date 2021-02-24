@@ -2,6 +2,7 @@
 
 namespace LGE
 {
+
 	RenderContext::RenderContext(Projector projector)
 	{
 		m_projector = projector;
@@ -72,18 +73,24 @@ namespace LGE
 	{
 		for (auto& mesh : m_renderObjects)
 		{
+			if (mesh->vertexData != nullptr)
+			{
+				delete[] mesh->vertexData;
+				mesh->vertexData = nullptr;
+			}
 			
 			size_t size;
-			float* vertexData = mesh->SerialzeToBuffer(&size);
-			m_vertexBuffer->UpdateBuffer(mesh->GetOffset(), size, vertexData);
+			mesh->vertexData = mesh->SerialzeToBuffer(&size);
+			m_vertexBuffer->UpdateBuffer(mesh->GetOffset(), size, mesh->vertexData);
 		}
 
 	}
 	void RenderContext::Draw()
 	{
-
+		
 		if (m_renderObjects.size() > 0)
 		{
+			
 			UseShader(shaderProgram);
 
 			//shaderProgram->SetUniform4f("u_color",0.5,1.0,0.25f,1.0f);
@@ -93,12 +100,15 @@ namespace LGE
 			
 			glDrawElements(GL_TRIANGLES, m_indexBuffer->GetSize(), GL_UNSIGNED_INT, nullptr);
 			glBindVertexArray(0);
+			//Clean();
 
 		}
 
 
 
 	}
+
+	
 
 	LGE_RESULT RenderContext::UseShader(ShaderProgram* shader)
 	{

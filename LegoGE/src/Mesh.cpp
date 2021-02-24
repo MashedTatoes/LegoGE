@@ -9,6 +9,7 @@ namespace LGE {
 		m_indices = new unsigned int[numIndices];
 		m_indicesSize = numIndices;
 		m_verticesSize = numVertices;
+		vertexData = nullptr;
 	}
 
 	Mesh::~Mesh()

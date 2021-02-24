@@ -5,6 +5,8 @@
 namespace LGE {
 	class Mesh
 	{
+
+		friend class RenderContext;
 	protected:
 		Vertex* m_vertices;
 		unsigned int* m_indices;
@@ -17,7 +19,8 @@ namespace LGE {
 
 		int m_offset;
 		Texture* m_tex;
-
+		float* vertexData;
+		
 	
 	public:
 		Mesh(size_t numVertices, size_t numIndices);
@@ -50,6 +53,8 @@ namespace LGE {
 		int GetOffset() { return m_offset; }
 		Transform* GetTransform() { return m_transform; }
 		void SetTexture(Texture* tex);
+		
+
 		Texture GetTexture()
 		{
 			return *m_tex;
